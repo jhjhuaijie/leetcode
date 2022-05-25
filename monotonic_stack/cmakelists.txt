@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(monotonic_stack)
+
+set(CMAKE_CXX_STANDARD 14)
+
+set(CURR_DIR ${PROJECT_SOURCE_DIR})
+message(STATUS "DIR=====${CURR_DIR}")
+aux_source_directory(${CURR_DIR} SRCS_DIR)
+
+add_executable(monotonic_stack ${SRCS_DIR})
