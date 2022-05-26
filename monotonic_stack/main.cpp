@@ -142,12 +142,23 @@ std::vector<int> DailyTemperatures(std::vector<int>& temperatures) {
         sk.pop();
     }
 
+    std::vector<int> rets;
+    for (auto item : tempt2NextGreaterDistance) {
+        rets.emplace_back(item.second);
+    }
+    return rets;
+}
+// 优化，栈中存储元素的位置
+std::vector<int> DailyTemperatures2(std::vector<int>& temperatures) {
+    std::stack<int> sk;
+    int num = temperatures.size();
     std::vector<int> rets(num);
     for (int i = 0; i < num; i++) {
-        auto iter = tempt2NextGreaterDistance.find(i);
-        if (iter != tempt2NextGreaterDistance.end()) {
-            rets[i] = iter->second;
+        while (!sk.empty() && (temperatures[sk.top()] < temperatures[i])) {
+            rets[sk.top()] = i - sk.top();
+            sk.pop();
         }
+        sk.emplace(i);
     }
     return rets;
 }
