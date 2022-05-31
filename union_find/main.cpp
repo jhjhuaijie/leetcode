@@ -117,14 +117,43 @@ int FindCircleNumByUnionFind(std::vector<std::vector<int>>& isConnected)
 }
 #pragma endregion
 #pragma endregion
+
+#pragma region 684. 冗余连接
+std::vector<int> FindRedundantConnection(std::vector<std::vector<int>>& edges)
+{
+    std::vector<int> ret(2);
+    int num = edges.size();
+    std::vector<int> parent(num);
+    for (int i = 0; i < num; i++) {
+        parent[i] = i;
+    }
+    for (auto& edge : edges) {
+        int index1 = edge[0] - 1;
+        int index2 = edge[1] - 1;
+        // 判断两个节点是否属于同一个集合
+        if (Find(parent, index1) == Find(parent, index2)) {
+            ret[0] = edge[0];
+            ret[1] = edge[1];
+            continue;
+        }
+        Union(parent, index1, index2);
+    }
+
+    return ret;
+}
+#pragma endregion
 int main()
 {
-    std::vector<std::vector<int>> isconnected {
-        {1, 0, 0},
-        {0, 1, 0},
-        {0, 0, 1}
+    std::vector<std::vector<int>> edges {
+        {1, 2},
+        {2, 3},
+        {3, 4},
+        {1, 4},
+        {1, 5}
     };
-    std::cout << "province: ";
-    std::cout << FindCircleNumByUnionFind(isconnected) << std::endl;
+    std::vector<int> ret = FindRedundantConnection(edges);
+    for (const auto& val : ret) {
+        std::cout << val << std::endl;
+    }
     return 0;
 }
