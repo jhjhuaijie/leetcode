@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
-
-project(union_find)
+project(sliding_window)
 
 set(CMAKE_CXX_STANDARD 14)
 
 set(CURR_DIR ${PROJECT_SOURCE_DIR})
 aux_source_directory(${CURR_DIR} SRCS_DIR)
 
-add_executable(union_find ${SRCS_DIR})
+add_executable(${PROJECT_NAME} ${SRCS_DIR})
